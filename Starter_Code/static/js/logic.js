@@ -20,7 +20,7 @@ const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month
 d3.json(url).then(function (data) {
     // createFeatures(data["features"]);
 
-    let markers = L.markerClusterGroup();
+    let markers = L.circleMarker();
     for (let i = 0; i < data["features"].length; i++) {
         let location = data["features"][i]["geometry"]["coordinates"];
         if (location) {
