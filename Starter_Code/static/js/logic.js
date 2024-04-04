@@ -9,8 +9,7 @@ let baseMaps = {
 
 let myMap = L.map('map', {
     center : [0,0],
-    zoom : 40,
-    layers : [baseMaps]
+    zoom : 40
     });
 
 
