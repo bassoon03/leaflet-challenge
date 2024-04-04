@@ -1,9 +1,3 @@
-let myMap = L.map('map', {
-    center : [0,0],
-    zoom : 40,
-    layers : [baseMaps]
-    });
-
 let geo_map = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -13,6 +7,11 @@ let baseMaps = {
     "Topo Map" : geo_map
 };
 
+let myMap = L.map('map', {
+    center : [0,0],
+    zoom : 40,
+    layers : [baseMaps]
+    });
 
 
 const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson";
