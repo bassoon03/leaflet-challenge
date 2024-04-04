@@ -10,7 +10,7 @@ let baseMaps = {
 let myMap = L.map('map', {
     center : [0,0],
     zoom : 10,
-    layers : [baseMaps]
+    layers : [geo_map]
     });
 
 
