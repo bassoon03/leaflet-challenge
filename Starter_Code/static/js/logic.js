@@ -20,6 +20,54 @@ const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month
 d3.json(url).then(function (data) {
     // createFeatures(data["features"]);
 
+    let features = data["features"];
+    
+      
+      // create a vector circle centered on each point feature's latitude and longitude
+    function createCircles (feature, latlng) {
+        let myLayerStyle = {
+            color: feature["geometry"]["coordinates"][2],
+            radius: feature["properties"]["mag"]};
+        let latlng = [feature["geometry"]["coordinates"][0], feature["geometry"]["coordinates"][1]];
+        return L.circleMarker(latlng, myLayerStyle)
+      }
+      
+      // create an options object that specifies which function will called on each feature
+    var myLayerOptions = {
+        pointToLayer: createCircles
+      }
+      
+      
+      // create the GeoJSON layer from the myLayerData object (not shown in this snippet)
+    L.geoJSON(features, myLayerOptions).bindPopup(function (geo_map) {
+        return layer.feature.properties["mag"];
+        return layer.feature.properties["place"];
+        return layer.feature["geometry"]["coordinates"][2];
+
+    }).addTo(map)
+
+
+
+
+
+    
+    L.geoJSON(features, {
+        style : function (feature) {
+            return {color: feature.properties.color};
+        }
+    }).bindPopup(function (geo_map) {
+        return layer.feature.properties["mag"];
+        return layer.feature.properties["place"];
+        return layer.feature["geometry"]["coordinates"][2];
+
+    }).addTo(myMap);
+
+
+
+
+
+
+
     let markers = L.circleMarker();
     for (let i = 0; i < data["features"].length; i++) {
         let location = data["features"][i]["geometry"]["coordinates"];
