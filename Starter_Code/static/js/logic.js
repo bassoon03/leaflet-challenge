@@ -51,34 +51,40 @@ d3.json(url).then(function (data) {
 
 
     
-    L.geoJSON(features, {
-        style : function (feature) {
-            return {color: feature.properties.color};
-        }
-    }).bindPopup(function (geo_map) {
-        return layer.feature.properties["mag"];
-        return layer.feature.properties["place"];
-        return layer.feature["geometry"]["coordinates"][2];
+    // L.geoJSON(features, {
+    //     style : function (feature) {
+    //         return {color: feature.properties.color};
+    //     }
+    // }).bindPopup(function (geo_map) {
+    //     return layer.feature.properties["mag"];
+    //     return layer.feature.properties["place"];
+    //     return layer.feature["geometry"]["coordinates"][2];
 
-    }).addTo(myMap);
-
-
+    // }).addTo(myMap);
 
 
 
 
 
-    let markers = L.circleMarker();
-    for (let i = 0; i < data["features"].length; i++) {
-        let location = data["features"][i]["geometry"]["coordinates"];
-        if (location) {
-            markers.addLayer(L.circleMarker([location[0],location[1], radius = data["features"]["properties"]["mag"],
-            fillOpacity = data["features"]["properties"].location[2]
-            ]).bindPopup(data["features"][i].descriptor))
-        };
-    };
+
+
+    // let markers = L.circleMarker();
+    // for (let i = 0; i < data["features"].length; i++) {
+    //     let location = data["features"][i]["geometry"]["coordinates"];
+    //     if (location) {
+    //         markers.addLayer(L.circleMarker([location[0],location[1], radius = data["features"]["properties"]["mag"],
+    //         fillOpacity = data["features"]["properties"].location[2]
+    //         ]).bindPopup(data["features"][i].descriptor))
+    //     };
+    // };
     
-    myMap.addLayer(markers);
+    // myMap.addLayer(markers);
+
+
+
+
+
+
 
     let legend = L.control({position: "bottomright"});
     legend.onAdd = function() {
