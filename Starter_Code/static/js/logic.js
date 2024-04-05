@@ -24,7 +24,7 @@ d3.json(url).then(function (data) {
     
       
       // create a vector circle centered on each point feature's latitude and longitude
-    function createCircles (feature, latlng) {
+    function createCircles (feature) {
         let myLayerStyle = {
             color: feature["geometry"]["coordinates"][2],
             radius: feature["properties"]["mag"]};
