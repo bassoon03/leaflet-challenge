@@ -9,7 +9,7 @@ let baseMaps = {
 
 let myMap = L.map('map', {
     center : [0,0],
-    zoom : 10,
+    zoom : 20,
     layers : geo_map
     });
 
@@ -24,11 +24,11 @@ d3.json(url).then(function (data) {
     
       
       // create a vector circle centered on each point feature's latitude and longitude
-    function createCircles (feature) {
+    function createCircles (features) {
         let myLayerStyle = {
-            color: feature["geometry"]["coordinates"][2],
-            radius: feature["properties"]["mag"]};
-        let latlng = [feature["geometry"]["coordinates"][0], feature["geometry"]["coordinates"][1]];
+            color: features["geometry"]["coordinates"][2],
+            radius: features["properties"]["mag"]};
+        let latlng = [features["geometry"]["coordinates"][0], features["geometry"]["coordinates"][1]];
         return L.circleMarker(latlng, myLayerStyle)
       }
       
