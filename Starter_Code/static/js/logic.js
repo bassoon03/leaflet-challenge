@@ -29,7 +29,7 @@ d3.json(url).then(function (data) {
             color: features["geometry"]["coordinates"][2],
             radius: features["properties"]["mag"]};
         let latlng = [features["geometry"]["coordinates"][0], features["geometry"]["coordinates"][1]];
-        return L.circleMarker(latlng, myLayerStyle)
+        return L.circle(latlng, myLayerStyle)
       }
       
       // create an options object that specifies which function will called on each feature
