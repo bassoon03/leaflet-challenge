@@ -13,38 +13,79 @@ let myMap = L.map('map', {
     layers : geo_map
     });
 
-//geo_map.addTo(myMap);
 
-const url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson";
+
+
+let url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson";
 
 d3.json(url).then(function (data) {
-    // createFeatures(data["features"]);
-
+    
+    L.geoJson(data).addTo(myMap);
+    
     let features = data["features"];
+
+
+    function markerSize(magnitude) {
+        return Math.sqrt(magnitude) * 50;
+      };
+      
+
+
+    for (let i = 0; i < features.length; i++) {
+
+        location = [features[i]["geometry"]["coordinates"][0], features[i]["geometry"]["coordinates"][1]]
+        L.circle(location, {
+            color: "green",
+            fillColor: features[i]["geometry"]["coordinates"][2],
+            radius: markerSize(features[i]["properties"]["mag"])
+
+        }).bindPopup(`<h1>${features[i]["properties"]["place"]}</h1> <hr> <h3>Magnitude: ${features[i]["properties"]["mag"].toLocaleString()}</h3><h3>Depth: ${features[i]["geometry"]["coordinates"][2]}</h3>`).addTo(myMap);
+    }});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
       
       // create a vector circle centered on each point feature's latitude and longitude
-    function createCircles (features) {
-        let myLayerStyle = {
-            color: features["geometry"]["coordinates"][2],
-            radius: features["properties"]["mag"]};
-        let latlng = [features["geometry"]["coordinates"][0], features["geometry"]["coordinates"][1]];
-        return L.circle(latlng, myLayerStyle)
-      }
+    // function createCircles (features) {
+    //     let myLayerStyle = {
+    //         color: features["geometry"]["coordinates"][2],
+    //         radius: features["properties"]["mag"]};
+    //     let latlng = [features["geometry"]["coordinates"][0], features["geometry"]["coordinates"][1]];
+    //     return L.circle(latlng, myLayerStyle)
+    //   }
       
-      // create an options object that specifies which function will called on each feature
-    var myLayerOptions = {
-        pointToLayer: createCircles
-      }
+    //   // create an options object that specifies which function will called on each feature
+    // var myLayerOptions = {
+    //     pointToLayer: createCircles
+    //   }
       
       
-      // create the GeoJSON layer from the myLayerData object (not shown in this snippet)
-    L.geoJSON(features, myLayerOptions).bindPopup(function (geo_map) {
-        return layer.feature.properties["mag"];
-        return layer.feature.properties["place"];
-        return layer.feature["geometry"]["coordinates"][2];
+    //   // create the GeoJSON layer from the myLayerData object (not shown in this snippet)
+    // L.geoJSON(features, myLayerOptions).bindPopup(function (geo_map) {
+    //     return layer.feature.properties["mag"];
+    //     return layer.feature.properties["place"];
+    //     return layer.feature["geometry"]["coordinates"][2];
 
-    }).addTo(map)
+    // }).addTo(map)
 
 
 
@@ -86,31 +127,31 @@ d3.json(url).then(function (data) {
 
 
 
-    let legend = L.control({position: "bottomright"});
-    legend.onAdd = function() {
-        let div = L.DomUtil.create("div", "info legend");
-        let limits = markers.options.limits;
-        let colors = markers.options.colors;
-        let labels = [];
+//     let legend = L.control({position: "bottomright"});
+//     legend.onAdd = function() {
+//         let div = L.DomUtil.create("div", "info legend");
+//         let limits = markers.options.limits;
+//         let colors = markers.options.colors;
+//         let labels = [];
 
-        let legendInfo = "<h1>Earthquakes with Magnitude 4.5 or Higher<h1>" +
-            "<div class=\"labels\">" +
-                "<div class=\"min\">" + limits[0] + "</div>" +
-                "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
-            "</div>";
-    div.innerHTML = legendInfo;
+//         let legendInfo = "<h1>Earthquakes with Magnitude 4.5 or Higher<h1>" +
+//             "<div class=\"labels\">" +
+//                 "<div class=\"min\">" + limits[0] + "</div>" +
+//                 "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
+//             "</div>";
+//     div.innerHTML = legendInfo;
 
-    limits.forEach(function(limit, index) {
-        labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
-    });
+//     limits.forEach(function(limit, index) {
+//         labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
+//     });
 
-    div.innerHTML += "<ul>" + labels.join("") + "</ul>";
-    return div;
-    };
+//     div.innerHTML += "<ul>" + labels.join("") + "</ul>";
+//     return div;
+//     };
 
-    legend.addTo(myMap);
+//     legend.addTo(myMap);
 
-});
+// });
 
 
 
